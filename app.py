@@ -2,20 +2,20 @@
 # File: app.py
 
 import streamlit as st
-import openai
+import google.generativeai as genai
 import os
 from dotenv import load_dotenv
 
 load_dotenv()
-openai.api_key = os.getenv("OPENAI_API_KEY")
+GENAI_API_KEY = os.getenv("GOOGLE_API_KEY")
+genai.configure(api_key=GENAI_API_KEY)
+
+model = genai.GenerativeModel(model_name="models/gemini-1.5-flash")
 
 def ask_llm(prompt):
-    response = openai.ChatCompletion.create(
-        model="gpt-4",  # or use "gpt-3.5-turbo"
-        messages=[{"role": "user", "content": prompt}],
-        temperature=0.2,
-    )
-    return response.choices[0].message.content.strip()
+    response = model.generate_content(prompt)
+    return response.text.strip()
+
 
 st.set_page_config(page_title="Code Copilot", layout="wide")
 st.title("🧑‍💻 Code Copilot - Your Mini Coding Assistant")
