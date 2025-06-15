@@ -1,6 +1,3 @@
-# Code Copilot - Streamlit App
-# File: app.py
-
 import streamlit as st
 import google.generativeai as genai
 import os
@@ -18,7 +15,7 @@ def ask_llm(prompt):
 
 
 st.set_page_config(page_title="Code Copilot", layout="wide")
-st.title("🧑‍💻 Code Copilot - Your Mini Coding Assistant")
+st.title("Mini Code Copilot - Your Mini Coding/Documentation Assistant")
 
 task = st.selectbox("Choose a Task", [
     "Explain Code",
@@ -59,7 +56,7 @@ if st.button("Run Copilot"):
     if code.strip():
         with st.spinner("Thinking..."):
             result = run_copilot(task, code, lang_target)
-            st.subheader("📄 Output")
+            st.subheader("Result :- ")
             st.code(result)
     else:
         st.warning("Please paste some code or write a prompt above.")
